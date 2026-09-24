@@ -27,7 +27,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Fundo mais claro e limpo (slate-50) */
+            background-color: #f8fafc;
             -webkit-tap-highlight-color: transparent;
         }
         
@@ -83,11 +83,9 @@
         </div>
 
         <div class="z-10 flex flex-col items-center w-full max-w-sm">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(99,102,241,0.4)]">
-                <i class="ph-fill ph-wallet text-3xl text-white"></i>
-            </div>
+            <h1 class="text-3xl font-black text-white mb-10 tracking-tight text-center">MINHA GESTÃO<br><span class="text-indigo-400">FINANCEIRA</span></h1>
             
-            <div class="glass-dark p-8 rounded-[2rem] w-full flex flex-col items-center shadow-2xl relative transition-all duration-300">
+            <div class="glass-dark p-8 rounded-[2rem] w-full flex flex-col items-center shadow-2xl relative transition-all duration-300 border border-white/10">
                 
                 <!-- Botão de 3 pontinhos para editar -->
                 <button type="button" onclick="openProfileEdit(event)" class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
@@ -96,8 +94,8 @@
                 
                 <!-- Foto de Perfil Limpa -->
                 <div class="relative w-24 h-24 mb-6">
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 animate-pulse opacity-50 blur-md"></div>
-                    <div class="relative w-full h-full rounded-full border-2 border-white/20 bg-slate-800 overflow-hidden flex items-center justify-center shadow-inner">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 opacity-50 blur-md"></div>
+                    <div class="relative w-full h-full rounded-full border-2 border-slate-600 bg-slate-800 overflow-hidden flex items-center justify-center shadow-inner">
                         <img id="profile-img" src="" alt="Perfil" class="w-full h-full object-cover hidden">
                         <i id="profile-icon" class="ph-fill ph-user text-4xl text-slate-400"></i>
                     </div>
@@ -120,7 +118,7 @@
 
                     <p id="pin-error" class="text-rose-400 text-sm font-medium hidden mb-4 bg-rose-500/10 py-2 px-4 rounded-lg w-full text-center border border-rose-500/20">Senha incorreta!</p>
                     
-                    <button type="submit" class="w-full py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition shadow-[0_4px_15px_rgba(99,102,241,0.3)]">
+                    <button type="submit" class="w-full py-4 rounded-2xl font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition shadow-[0_4px_15px_rgba(79,70,229,0.3)]">
                         Desbloquear
                     </button>
                 </form>
@@ -165,7 +163,7 @@
                     <i class="ph ph-download-simple text-xl"></i>
                     <span class="ml-3 text-sm">Exportar Dados</span>
                 </button>
-                <button onclick="lockScreen()" class="w-full flex items-center px-4 py-3 rounded-xl transition hover:bg-rose-50 text-rose-600 font-medium">
+                <button onclick="confirmLockScreen()" class="w-full flex items-center px-4 py-3 rounded-xl transition hover:bg-rose-50 text-rose-600 font-medium">
                     <i class="ph ph-lock-key text-xl"></i>
                     <span class="ml-3 text-sm">Bloquear App</span>
                 </button>
@@ -175,18 +173,17 @@
         <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
         <main class="flex-1 flex flex-col h-[100dvh] w-full overflow-hidden relative">
             
-            <!-- HEADER (Filtro de Data) -->
+            <!-- HEADER (Filtro de Data e Sync) -->
             <header class="glass h-16 md:h-20 border-b border-slate-200 flex items-center justify-between px-4 md:px-8 shrink-0 z-10 sticky top-0">
                 <div class="flex items-center gap-3">
                     
-                    <!-- BOTÃO DE PERFIL COM CADEADO (Sair no Mobile) -->
-                    <button onclick="confirmLockScreen()" class="relative w-10 h-10 rounded-full bg-slate-200 md:hidden flex items-center justify-center border border-slate-300 shadow-sm transition hover:scale-105 active:scale-95">
+                    <!-- BOTÃO DE PERFIL COM CADEADO NO CELULAR -->
+                    <button onclick="confirmLockScreen()" class="relative w-10 h-10 rounded-full bg-slate-200 md:hidden flex items-center justify-center border border-slate-300 shadow-sm transition hover:scale-105 active:scale-95" title="Bloquear App">
                         <div class="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-slate-100">
                             <img id="header-profile-img" src="" class="w-full h-full object-cover hidden">
                             <i id="header-profile-icon" class="ph-fill ph-user text-slate-400 text-xl"></i>
                         </div>
-                        <!-- Mini Cadeado Vermelho -->
-                        <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center text-white shadow-md" title="Bloquear App">
+                        <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center text-white shadow-md">
                             <i class="ph-bold ph-lock-key text-[10px]"></i>
                         </div>
                     </button>
@@ -194,16 +191,25 @@
                     <h2 id="page-title" class="text-xl md:text-2xl font-bold text-slate-800 tracking-tight">Visão Geral</h2>
                 </div>
                 
-                <div class="flex items-center bg-white shadow-sm px-1 py-1 rounded-full border border-slate-200">
-                    <button onclick="changeMonth(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition text-slate-500"><i class="ph-bold ph-caret-left"></i></button>
-                    <span id="current-month-display" class="font-bold text-slate-700 min-w-[110px] md:min-w-[130px] text-center capitalize text-sm md:text-base"></span>
-                    <button onclick="changeMonth(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition text-slate-500"><i class="ph-bold ph-caret-right"></i></button>
+                <div class="flex items-center gap-2 md:gap-4">
+                    <!-- Botão de Sincronizar / Atualizar Forçado -->
+                    <button onclick="forceSync()" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center text-slate-500 border border-slate-200 shadow-sm transition hover:text-indigo-600 hover:border-indigo-200 active:scale-95" title="Sincronizar Dados">
+                        <i id="sync-icon" class="ph-bold ph-arrows-clockwise text-lg"></i>
+                    </button>
+
+                    <!-- Navegação de Meses -->
+                    <div class="flex items-center bg-white shadow-sm px-1 py-1 rounded-full border border-slate-200">
+                        <button onclick="changeMonth(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition text-slate-500"><i class="ph-bold ph-caret-left"></i></button>
+                        <span id="current-month-display" class="font-bold text-slate-700 min-w-[110px] md:min-w-[130px] text-center capitalize text-sm md:text-base"></span>
+                        <button onclick="changeMonth(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition text-slate-500"><i class="ph-bold ph-caret-right"></i></button>
+                    </div>
                 </div>
             </header>
 
             <!-- Telas de Conteúdo (Roláveis) -->
             <div class="flex-1 overflow-y-auto p-4 pb-32 md:p-8 md:pb-8 no-scrollbar bg-slate-50" id="main-content">
                 
+                <!-- VIEW: DASHBOARD -->
                 <div id="view-dashboard" class="view-section space-y-6 md:space-y-8 pb-6 max-w-6xl mx-auto w-full">
                     
                     <!-- Alerta de Vencimento -->
@@ -215,7 +221,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-sm md:text-base tracking-wide">Atenção aos Vencimentos!</h4>
-                                    <p id="dash-alert-text" class="text-xs md:text-sm font-medium opacity-90">Você tem contas pendentes.</p>
+                                    <p id="dash-alert-text" class="text-xs md:text-sm font-medium opacity-90">Você tem contas pendentes vencendo.</p>
                                 </div>
                             </div>
                             <i class="ph-bold ph-caret-right text-xl opacity-80"></i>
@@ -234,7 +240,7 @@
                             <span id="dash-balance" class="text-4xl md:text-5xl font-black tracking-tight drop-shadow-md mb-2">R$ 0,00</span>
                             <div class="flex items-center gap-2 mt-auto pt-4 border-t border-white/10">
                                 <i class="ph-fill ph-shield-check text-indigo-400"></i>
-                                <p class="text-slate-400 text-xs font-medium">Saldo disponível nas contas</p>
+                                <p class="text-slate-400 text-xs font-medium">Saldo disponível hoje nas contas</p>
                             </div>
                         </div>
                         
@@ -298,6 +304,7 @@
                     </div>
                 </div>
 
+                <!-- VIEW: CARTEIRA E CARTÕES -->
                 <div id="view-wallet" class="view-section hidden space-y-8 pb-6 max-w-6xl mx-auto w-full">
                     <div>
                         <div class="flex justify-between items-end mb-6">
@@ -328,21 +335,22 @@
                     </div>
                 </div>
 
+                <!-- VIEW: TRANSAÇÕES (EXTRATO) -->
                 <div id="view-transactions" class="view-section hidden space-y-6 pb-6 max-w-4xl mx-auto w-full">
                     
                     <!-- Minipainel de Resumo do Mês -->
                     <div class="bg-white rounded-[2rem] p-4 md:p-6 shadow-sm border border-slate-100 grid grid-cols-3 gap-2 md:gap-4 divide-x divide-slate-100">
                         <div class="flex flex-col items-center justify-center text-center px-1 md:px-2">
                             <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-widest mb-1"><i class="ph-fill ph-arrow-circle-down text-emerald-500"></i> Entradas</span>
-                            <span id="trans-summary-income" class="text-sm sm:text-base md:text-2xl font-black text-slate-800 tracking-tighter">R$ 0,00</span>
+                            <span id="trans-summary-income" class="text-base sm:text-lg md:text-2xl font-black text-slate-800 tracking-tighter">R$ 0,00</span>
                         </div>
                         <div class="flex flex-col items-center justify-center text-center px-1 md:px-2">
                             <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-widest mb-1"><i class="ph-fill ph-arrow-circle-up text-rose-500"></i> Saídas</span>
-                            <span id="trans-summary-expense" class="text-sm sm:text-base md:text-2xl font-black text-slate-800 tracking-tighter">R$ 0,00</span>
+                            <span id="trans-summary-expense" class="text-base sm:text-lg md:text-2xl font-black text-slate-800 tracking-tighter">R$ 0,00</span>
                         </div>
                         <div class="flex flex-col items-center justify-center text-center px-1 md:px-2">
                             <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-widest mb-1"><i class="ph-fill ph-scales text-indigo-500"></i> Sobra</span>
-                            <span id="trans-summary-balance" class="text-sm sm:text-base md:text-2xl font-black text-indigo-600 tracking-tighter">R$ 0,00</span>
+                            <span id="trans-summary-balance" class="text-base sm:text-lg md:text-2xl font-black text-indigo-600 tracking-tighter">R$ 0,00</span>
                         </div>
                     </div>
 
@@ -355,9 +363,7 @@
                         </button>
                     </div>
                     
-                    <div class="flex flex-col gap-3" id="transactions-list">
-                        <!-- Lista Feed gerada via JS -->
-                    </div>
+                    <div class="flex flex-col gap-3" id="transactions-list"></div>
                     <div id="empty-transactions" class="hidden py-12 text-center text-slate-400 flex flex-col items-center bg-white rounded-[2rem] border border-slate-100 border-dashed">
                         <i class="ph-fill ph-receipt text-5xl mb-3 text-slate-200"></i>
                         <p class="font-medium">Nenhuma transação neste mês.</p>
@@ -365,6 +371,7 @@
                     </div>
                 </div>
 
+                <!-- VIEW: CATEGORIAS -->
                 <div id="view-categories" class="view-section hidden space-y-6 pb-6 max-w-6xl mx-auto w-full">
                     <div class="flex justify-between items-end mb-2">
                         <div>
@@ -381,7 +388,7 @@
             </div>
         </main>
         
-        <!-- MOBILE BOTTOM NAV (Fixada na base, esconde no Desktop) -->
+        <!-- MOBILE BOTTOM NAV -->
         <nav class="md:hidden fixed bottom-0 w-full glass border-t border-slate-200 flex justify-around items-center px-2 pt-2 pb-safe z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.03)] rounded-t-2xl">
             <button onclick="navigate('dashboard')" id="nav-mobile-dashboard" class="nav-btn-mobile flex flex-col items-center justify-center w-16 py-2 text-indigo-600 transition-colors">
                 <i class="ph-fill ph-squares-four text-2xl mb-1 transition-transform"></i>
@@ -392,7 +399,7 @@
                 <span class="text-[9px] font-bold tracking-widest uppercase">Extrato</span>
             </button>
             
-            <!-- Botão FAB Central (Mais ações no Mobile) -->
+            <!-- Botão FAB Central -->
             <div class="relative -top-6">
                 <button onclick="openTransactionModal('expense')" class="w-14 h-14 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-indigo-300 border-4 border-slate-50 active:scale-95 transition-transform">
                     <i class="ph-bold ph-plus text-2xl"></i>
@@ -410,7 +417,8 @@
         </nav>
     </div>
 
-
+    <!-- Modais de Formulário... (Todos intocados) -->
+    
     <!-- Modal Transação -->
     <div id="modal-transaction" class="fixed inset-0 bg-slate-900/60 z-[150] hidden flex items-end md:items-center justify-center md:p-4 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-t-[2rem] md:rounded-[2rem] w-full max-w-md shadow-2xl overflow-hidden modal-enter max-h-[90dvh] flex flex-col">
@@ -434,22 +442,22 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 px-1">Categoria</label>
-                            <select id="trans-category" onchange="autoFillDescription()" required class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white text-slate-700 font-medium font-sans appearance-none"></select>
+                            <select id="trans-category" onchange="autoFillDescription()" required class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none transition bg-white text-slate-700 font-medium font-sans appearance-none"></select>
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 px-1">Data</label>
-                            <input type="date" id="trans-date" required class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-slate-700 font-medium font-sans">
+                            <input type="date" id="trans-date" required class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none transition text-slate-700 font-medium font-sans">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 px-1">Descrição</label>
-                        <input type="text" id="trans-desc" required placeholder="Ex: Mercado mensal" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-slate-700 font-medium">
+                        <input type="text" id="trans-desc" required placeholder="Ex: Mercado mensal" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none transition text-slate-700 font-medium">
                     </div>
 
                     <div>
                         <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 px-1">Forma de Pagamento</label>
-                        <select id="trans-payment-method" required class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white text-slate-700 font-medium appearance-none">
+                        <select id="trans-payment-method" required class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none transition bg-white text-slate-700 font-medium appearance-none">
                         </select>
                     </div>
 
@@ -658,7 +666,6 @@
         let currentDate = new Date(); let chartInstance = null;
         let unsubTx = null; let unsubCat = null; let unsubAcc = null; let unsubCard = null; let unsubProfile = null;
 
-        // Paleta de Cores Premium
         const colorPalette = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#14b8a6', '#06b6d4', '#3b82f6', '#6366f1', '#a855f7', '#ec4899', '#334155'];
         const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
         const formatDateStr = (dateStr) => { if(!dateStr) return ''; const [year, month, day] = dateStr.split('-'); return `${day}/${month}/${year}`; };
@@ -792,6 +799,26 @@
             if (conf) window.lockScreen();
         };
 
+        // --- SISTEMA DE SINCRONIZAÇÃO FORÇADA ---
+        window.forceSync = () => {
+            const icon = document.getElementById('sync-icon');
+            if(icon) icon.classList.add('animate-spin', 'text-indigo-600');
+            
+            // Destrói os ouvintes antigos e cria novos para forçar a busca na internet
+            if (unsubTx) unsubTx(); if (unsubCat) unsubCat(); if (unsubAcc) unsubAcc(); if (unsubCard) unsubCard(); if (unsubProfile) unsubProfile();
+            subscribeToFirebase();
+
+            setTimeout(() => { if(icon) icon.classList.remove('animate-spin', 'text-indigo-600'); }, 1000);
+        };
+
+        // Tenta sincronizar automaticamente quando o celular "acorda" o app
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === 'visible' && (localStorage.getItem('auth_casal') === 'logado' || sessionStorage.getItem('auth_casal') === 'logado')) {
+                window.forceSync();
+            }
+        });
+        // ----------------------------------------
+
         window.showMsgBox = (title, message, type = 'info', isConfirm = false) => {
             return new Promise((resolve) => {
                 const modal = document.getElementById('custom-msgbox'); document.getElementById('msgbox-title').innerText = title; document.getElementById('msgbox-text').innerText = message;
@@ -860,7 +887,7 @@
 
         const renderDashboard = () => {
             const currentTx = filterTransactionsByMonth();
-            let totalPatrimonio = 0; accounts.forEach(acc => totalPatrimonio += getAccountBalance(acc.id)); // Saldo Real Histórico
+            let totalPatrimonio = 0; accounts.forEach(acc => totalPatrimonio += getAccountBalance(acc.id));
             
             let incomeTotal = 0; let incomePaid = 0;
             let expenseContaTotal = 0; let expenseContaPaid = 0;
@@ -946,7 +973,6 @@
             const currentTx = filterTransactionsByMonth();
             const listContainer = document.getElementById('transactions-list'); const emptyState = document.getElementById('empty-transactions'); listContainer.innerHTML = '';
             
-            // Calculo do Minipainel
             let monthIncome = 0; let monthExpense = 0;
             currentTx.forEach(t => { if(t.type === 'income') monthIncome += t.amount; else monthExpense += t.amount; });
             document.getElementById('trans-summary-income').innerText = formatCurrency(monthIncome);
